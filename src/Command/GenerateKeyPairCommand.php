@@ -59,7 +59,7 @@ final class GenerateKeyPairCommand extends Command
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'Do not update key files.');
         $this->addOption('skip-if-exists', null, InputOption::VALUE_NONE, 'Do not update key files if they already exist.');
         $this->addOption('overwrite', null, InputOption::VALUE_NONE, 'Overwrite key files if they already exist.');
-        $this->addArgument('algorithm', InputArgument::OPTIONAL, 'The algorithm code, possible values : RS256|RS384|RS512|HS256|HS384|HS512|ES256|ES384|ES512', 'RS256');
+        $this->addArgument('algorithm', InputArgument::OPTIONAL, sprintf('The algorithm code, possible values : %s', implode(self::ACCEPTED_ALGORITHMS)), 'RS256');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
