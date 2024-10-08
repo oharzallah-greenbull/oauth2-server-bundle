@@ -85,9 +85,15 @@ final class OAuth2Authenticator implements AuthenticatorInterface, Authenticatio
 
         /** @var string $oauthClientId */
         $oauthClientId = $psr7Request->getAttribute('oauth_client_id', '');
+        /** @var string $grantType */
+        $grantType = $psr7Request->getAttribute('oauth_grant_type', '');
 
+        
         /** @psalm-suppress MixedInferredReturnType */
-        $userLoader = function (string $userIdentifier): UserInterface {
+        $userLoader = function (string $userIdentifier) use ($grantType): UserInterface {
+            if ($grantType === 'client_credentials') {
+                return new NullUser();
+            }
             if ('' === $userIdentifier) {
                 return new NullUser();
             }
